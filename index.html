@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Sanjana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Great Vibes', cursive;
+      background: #ffe6f0;
+      overflow: hidden;
+    }
+    .start-screen, .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      flex-direction: column;
+    }
+    .start-screen {
+      background: #fff0f5;
+      text-align: center;
+    }
+    .start-btn {
+      padding: 15px 30px;
+      font-size: 20px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .slideshow img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: all 1s;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 2em;
+      color: #c2185b;
+      text-align: center;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bg-music" src="https://www.bensound.com/bensound-music/bensound-love.mp3" loop></audio>
+  <div class="start-screen" id="start-screen">
+    <h1>Happy Birthday Sanjana 🎂</h1>
+    <button class="start-btn" onclick="startSite()">Click to Start</button>
+  </div>
+  <div class="main-content" id="main-content" style="display: none;">
+    <div class="slideshow">
+      <img id="slide" src="https://via.placeholder.com/600x400?text=Photo+1" alt="Slide">
+    </div>
+    <div class="message">
+      Wishing you a day filled with love, laughter, and joy. ❤️
+    </div>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script>
+    const images = [
+      'https://via.placeholder.com/600x400?text=Photo+1',
+      'https://via.placeholder.com/600x400?text=Photo+2',
+      'https://via.placeholder.com/600x400?text=Photo+3'
+    ];
+    let current = 0;
+
+    function startSite() {
+      document.getElementById('start-screen').style.display = 'none';
+      document.getElementById('main-content').style.display = 'flex';
+      document.getElementById('bg-music').play();
+      showSlides();
+      launchConfetti();
+    }
+
+    function showSlides() {
+      setInterval(() => {
+        current = (current + 1) % images.length;
+        document.getElementById('slide').src = images[current];
+      }, 3000);
+    }
+
+    // Confetti animation using canvas
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let confetti = [];
+
+    for (let i = 0; i < 150; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 2,
+        d: Math.random() * 50,
+        color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+        tilt: Math.random() * 10 - 10,
+        tiltAngle: 0
+      });
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach(c => {
+        ctx.beginPath();
+        ctx.fillStyle = c.color;
+        ctx.ellipse(c.x, c.y, c.r, c.r / 2, Math.PI / 4, 0, 2 * Math.PI);
+        ctx.fill();
+      });
+      moveConfetti();
+    }
+
+    function moveConfetti() {
+      confetti.forEach(c => {
+        c.y += Math.cos(c.d) + 1 + c.r / 2;
+        c.x += Math.sin(c.d);
+        if (c.y > canvas.height) {
+          c.y = -10;
+          c.x = Math.random() * canvas.width;
+        }
+      });
+    }
+
+    function launchConfetti() {
+      setInterval(drawConfetti, 30);
+    }
+  </script>
+</body>
+</html>
