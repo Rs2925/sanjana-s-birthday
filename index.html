@@ -43,7 +43,10 @@
   </style>
 </head>
 <body>
-  <audio id="music" src="sanjana bday.mp3" autoplay loop></audio>
+ <audio id="bgMusic" autoplay loop>
+  <source src="sanjana-bday.mp3" type="audio/mpeg">
+</audio>
+
 
   <section class="intro">
     <h1>Light Up My Life</h1>
@@ -76,14 +79,15 @@
 
   <section class="memories" style="display:none">
     <h2>Mirror of Memories 🖼️</h2>
-    <div class="slider">
-      <img src="image1.webp" alt="Memory 1" />
-      <img src="image2.webp" alt="Memory 2" />
-      <img src="image3.webp" alt="Memory 3" />
-      <img src="image4.webp" alt="Memory 4" />
-      <img src="image5.webp" alt="Memory 5" />
-      <img src="image6.webp" alt="Memory 6" />
-    </div>
+  <div class="slider">
+  <div class="slide"><img src="img1.webp" alt="Memory 1"><p>That moment… when time stood still</p></div>
+  <div class="slide"><img src="img2.webp" alt="Memory 2"><p>This smile... my forever favorite</p></div>
+  <div class="slide"><img src="img3.webp" alt="Memory 3"><p>Our sweetest laugh together</p></div>
+  <div class="slide"><img src="img4.webp" alt="Memory 4"><p>Every hug, every memory</p></div>
+  <div class="slide"><img src="img5.webp" alt="Memory 5"><p>Captured forever in love</p></div>
+  <div class="slide"><img src="img6.webp" alt="Memory 6"><p>This moment. This magic. Always.</p></div>
+</div>
+
     <button class="btn" onclick="nextSection(4)">Final Message 💌</button>
   </section>
 
